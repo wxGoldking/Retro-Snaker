@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+        div.wrap{
+            overflow: hidden;
+            position:relative;
+            width: 960px;
+            height: 560px;
+            margin: 30px auto;
+            border:3px solid blue;
+        }
+        div#snake{
+            position:absolute;
+        }
+        div#snake span{
+            position:absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background:#108506;
+            border-radius:50%;
+            text-align: center;
+        }
+        span#apple{
+            position:absolute;
+            width: 20px;
+            height: 20px;
+            background:#f00;
+            border-radius:50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div id="snake">
+            <span id="bod"></span>
+        </div> 
+        <span id="apple"></span>
+    </div>
+   <script type="text/javascript">
+    var snake=document.getElementById('snake');
+    var apple=document.getElementById('apple');
+    var bod=snake.getElementsByTagName('span');
+    var x=0,y=0;
+    var timer;
+    var index=0;
+    var arr=[];
+    apple.style.left=parseInt(Math.random()*48)*20+"px";
+    apple.style.top=parseInt(Math.random()*28)*20+"px";
+    var timer2=setInterval(function(){
+        while(x==parseInt(apple.style.left)&&y==parseInt(apple.style.top)){
+            var ele=document.createElement("span");
+            snake.appendChild(ele);
+            bod[bod.length-1].style.left=bod[0].style.left;
+            bod[bod.length-1].style.top=bod[0].style.top;
+            setTimeout(function(){arr.push(bod[bod.length-1].style.left+bod[bod.length-1].style.top)},400);
+            apple.style.left=parseInt(Math.random()*48)*20+"px";
+            apple.style.top=parseInt(Math.random()*28)*20+"px"; 
+        }
+    },30);
+    document.onkeydown=function(event){
+        switch(event.keyCode){
+            case 39:clearInterval(timer);
+                timer=setInterval(function(){
+                if(arr.indexOf(bod[0].style.left+bod[0].style.top)!=-1){
+                    alert("Game over");
+                     clearInterval(timer);
+                    clearInterval(timer2);
+                }
+                else if(x<940){
+                    x+=20;
+                    bod[0].style.left=x+"px";
+                
+                }
+                else{
+                 alert("Game over");
+                    clearInterval(timer);
+                    clearInterval(timer2);
+                }
+            },200);
+                index=event.keyCode;
+            break;
+            case 40:
+                clearInterval(timer);
+                timer=setInterval(function(){
+                if(arr.indexOf(bod[0].style.left+bod[0].style.top)!=-1){
+                    alert("Game over");
+                     clearInterval(timer);
+                    clearInterval(timer2);
+                }
+                else if(y<540){
+                    y+=20;
+                    bod[0].style.top=y+"px";
+                }
+                else{
+                   alert("Game over");
+                    clearInterval(timer);
+                    clearInterval(timer2);
+                }
+            },200);
+                index=event.keyCode;
+            break;
+            case 38:
+                clearInterval(timer);
+                timer=setInterval(function(){
+                if(arr.indexOf(bod[0].style.left+bod[0].style.top)!=-1){
+                    alert("Game over");
+                     clearInterval(timer);
+                    clearInterval(timer2);
+                }
+                else if(y>0){
+                    y-=20;
+                    bod[0].style.top=y+"px";
+                }
+                
+                else{
+                   alert("Game over");
+                    clearInterval(timer);
+                    clearInterval(timer2);
+                }
+            },200);
+                index=event.keyCode;
+            break;
+            case 37:
+                clearInterval(timer);
+                timer=setInterval(function(){
+                if(arr.indexOf(bod[0].style.left+bod[0].style.top)!=-1){
+                    alert("Game over");
+                     clearInterval(timer);
+                    clearInterval(timer2);
+                }
+                else if(x>0){
+                    x-=20;
+                    bod[0].style.left=x+"px";
+                }
+                
+                else{
+                 alert("Game over");
+                    clearInterval(timer);
+                    clearInterval(timer2);
+                }
+            },200);
+                index=event.keyCode;
+            break;
+
+    }
+}
+   </script> 
+</body>
+</html>
